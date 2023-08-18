@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from familyspace.settings import BASE_DIR
-from .models import CustomUser, CustomUserManager
+from users.models import CustomUser, CustomUserManager
 
 from.form import MyForm
 def home(request):
@@ -20,24 +20,26 @@ def getvalue(request):
             mobile=int(request.POST['mobile'])
         except:
             pass
-        print(name)    
+        # print(name)    
         if form.is_valid():
             gender=form.cleaned_data['gender']
             blood=form.cleaned_data['blood']
-            print(name)
-            print(email)
-            print(dob)
-            print(gender)
-            print(blood)
             print(mobile)
             try:
                 my_checkbox_value = request.POST.get('superuser',False)
                 if(my_checkbox_value=='on'):
                     my_checkbox_value=True
-                print(my_checkbox_value)
+                    print(email)
+                    print(password)
+                    print(dob)
+                    print(mobile)
+                    print(name)
+                    print(gender)
+                    print(blood)
                 user = CustomUser.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
+                print("created")
             except:
-                pass
+                print("not created")
 
     return redirect("/")
 

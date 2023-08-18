@@ -27,17 +27,17 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
-    password = models.CharField(max_length=128)  # Password field
+    password = models.CharField(max_length=128)  # Password
     mobile = models.IntegerField()
     dob = models.DateField()
     gender = models.CharField(max_length=10)
     blood = models.CharField(max_length=10)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
+    print("problem")
     objects = CustomUserManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name', 'password', 'mobile', 'dob', 'gender', 'blood']  # Include 'password'
 
