@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from familyspace.settings import BASE_DIR
-from users.models import CustomUser, CustomUserManager
+from users.models import User, UserManager
 
 from.form import MyForm
 def home(request):
@@ -36,7 +36,7 @@ def getvalue(request):
                     print(name)
                     print(gender)
                     print(blood)
-                user = CustomUser.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
+                user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
                 print("created")
             except:
                 print("not created")
