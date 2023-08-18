@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forms</title>
+</head>
+
+<body>
+    <form action="getvalue" method="POST">
+
+        {% csrf_token %}
+        <input type="text" name="name" required id="name" placeholder="Enter your name"> <br>
+        
+        <input type="email" name="email" required id="email" placeholder="Enter the mail"> <br>
+
+
+        <input type="password" name="password" required id="password" placeholder="Enter the password"> <br>
+        
+        
+        <span>select the gender</span>
+        
+        <input type="radio" name="gender" required value="male" id="male">
+        <label for="male">male</label>
+        <input type="radio" name="gender" required value="female" id="female">
+        <label for="female">female</label> <br>
+
+        <span>blood group</span>
+        <select name="blood" required id="blood">
+            <option value=""></option>
+            <option value="a+ve">a+ve</option>
+            <option value="a+ve">a1+ve</option>
+            <option value="a+ve">a2+ve</option>
+        </select> <br>
+
+
+        <input type="number" value="0" name="mobile" id="mobile" placeholder=" mobile"> <br>
+        <input type="date" name="dob" required id="dob" placeholder=""> <br>
+
+        <span>superuser</span>
+        <input type="checkbox" name="superuser" id="superuser">
+
+
+        <input type="submit" value="submit">
+    </form>
+</body>
+
+</html>
