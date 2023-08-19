@@ -10,8 +10,12 @@ from.form import MyForm
 
 
 def home(request):
-    print(BASE_DIR)
-    return render(request,"index.html",{'name':'sakthi'})
+    alluser=User.objects.values_list('email')
+    try:
+        t=alluser[0]
+        return render(request,"index.html")
+    except:
+        return redirect("/superuser")
 
 def getvalue(request):
     if request.method=='POST':
@@ -24,22 +28,32 @@ def getvalue(request):
         try:
             mobile=int(request.POST['mobile'])
         except:
-            pass
-        # print(name)    
+            pass   
         if form.is_valid():
             gender=form.cleaned_data['gender']
             blood=form.cleaned_data['blood']
-            print(mobile)
+            my_checkbox_value = request.POST.get('superuser',False)
+            if(my_checkbox_value=='on'):
+                my_checkbox_value=True
+            alluser=User.objects.values_list('email')
             try:
-                my_checkbox_value = request.POST.get('superuser',False)
-                if(my_checkbox_value=='on'):
-                    my_checkbox_value=True
-                user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
-                print("created")
-            except:
-                print("not created")
+                t=alluser[0]
+                superuserpassword=str(request.POST['superuserpassword'])
+                superuseremail=str(request.POST['superuseremail'])
+                superuserdatas = User.objects.filter(email=superuseremail).values()
+                if superuserpassword==superuserdatas.password:
+                    user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
+                    return redirect("/")
 
-    return redirect("/")
+            except:
+                user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
+                return redirect("/")
+            
+
+    return redirect("register")
+
+def superuser(request):
+    return render(request,"superuser.html")
 
 def register(request):
     return render(request,'register.html')
@@ -65,3 +79,4 @@ def login_try(request):
 def logout(request):
     auth.logout(request)
     return redirect("/")
+
