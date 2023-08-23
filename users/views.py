@@ -20,13 +20,9 @@ def home(request):
     else to home page
     
     '''
-    alluser=User.objects.values_list('email')
-    print(alluser is None)
-    try:
-        t=alluser[0]
-        
+    if(User.objects.filter(id=1).exists()):
         return render(request,"index.html")
-    except:
+    else:
         return redirect("/superuser")
 
 def emailexist(email):
@@ -107,9 +103,7 @@ def getvalue(request):
             and superuser is created in except block
 
             """
-            try:
-               
-                t=alluser[0]
+            if(User.objects.filter(id=1).exists()):
                 superuseremail=str(request.POST['superuseremail'])
                 superuserpassword=str(request.POST['superuserpassword'])
                 if(emailexist(email)):
@@ -128,7 +122,7 @@ def getvalue(request):
                     messages.info(request,"invalid superuser email")
                     return redirect("/register")
 
-            except IndexError:
+            else:
                 user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
                 return redirect("/")
             
