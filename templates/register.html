@@ -30,8 +30,8 @@
         <select name="blood" required id="blood">
             <option value=""></option>
             <option value="a+ve">a+ve</option>
-            <option value="a+ve">a1+ve</option>
-            <option value="a+ve">a2+ve</option>
+            <option value="a1+ve">a1+ve</option>
+            <option value="a2+ve">a2+ve</option>
         </select> <br>
 
 
@@ -47,6 +47,11 @@
 
         <input type="submit" value="submit">
     </form>
+    
 </body>
-
+<script>
+    {% for i in messages %}
+alert('{{i}}');
+{% endfor %}
+</script>
 </html>

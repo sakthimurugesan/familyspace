@@ -8,5 +8,9 @@ urlpatterns = [
     path('logout',views.logout,name='logout'),
     path('login_try',views.login_try,name='login_try'),
     path('superuser',views.superuser,name='superuser'),
-    #path('createsuperuser',views.createsuperuser,name='createsuperuser'),
+    path('myfamily',views.myfamily,name='myfamily'),
+    path('delete/<str:id>',views.delete,name='delete'),
+    path('edit/<str:id>',views.edit,name='edit'),
+    path('save_edit/<str:id>',views.save_edit,name='save_edit'),
+    
 ]

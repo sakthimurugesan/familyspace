@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Users</title>
+</head>
+
+<body>
+    <form action="../save_edit/{{person.id}}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>name</th>
+                <td><input type="text" value="{{person.name}}" name="name" id="name">
+                </td>
+            </tr>
+            <tr>
+                <th>email</th>
+                <td><input type="email" name="email" id="email" value="{{person.email}}"></td>
+            </tr>
+            <tr>
+                <th>dob</th>
+                <td><input type="date" name="dob" id="dob"></td>
+            </tr>
+            <tr>
+                <th>blood</th>
+                <td>
+                    <select name="blood" required id="blood">
+                        <option value=""></option>
+
+                        {% if person.blood == 'a+ve' %}
+                        <option value="a+ve" selected>a+ve</option>
+                        {% else %}
+                        <option value="a+ve">a+ve</option>
+                        {% endif %}
+
+                        {% if person.blood == 'a1+ve' %}
+                        <option value="a1+ve" selected>a1+ve</option>
+                        {% else %}
+                        <option value="a1+ve">a1+ve</option>
+                        {% endif %}
+
+                        {% if person.blood == 'a2+ve' %}
+                        <option value="a2+ve" selected>a2+ve</option>
+                        {% else %}
+                        <option value="a2+ve">a2+ve</option>
+                        {% endif %}
+
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>gender</th>
+                <td>
+                    {% if person.gender == 'male' %}
+                    <input type="radio" name="gender" checked value="male" id="male">
+                    {% else %}
+                    <input type="radio" name="gender" value="male" id="male">
+                    {% endif %}
+
+
+                    <label for="male">male</label>
+
+                    {% if person.gender == 'female' %}
+                    <input type="radio" name="gender" checked value="female" id="female">
+                    {% else %}
+                    <input type="radio" name="gender" value="female" id="female">
+                    {% endif %}
+
+                    <label for="female">female</label>
+                </td>
+            </tr>
+            <tr>
+                <th>number</th>
+                <td>
+                    <input type="number" name="mobile" value="{{person.mobile}}" id="mobile">
+                </td>
+            </tr>
+            <tr>
+                <th>superuser</th>
+                <td>
+                    {% if superuser %}
+                    <input checked type="checkbox" name="is_superuser" id="is_superuser">
+                    {% else %}
+                    <input type="checkbox" name="is_superuser" id="is_superuser">
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+<script>
+    // Get a reference to the input element
+var dateInput = document.getElementById("dob");
+
+
+function formatDate(inputDate) {
+    const parsedDate = new Date(inputDate);
+    
+    const year = parsedDate.getFullYear();
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+    
+
+   // return null;  // Invalid input date format
+}
+const inputDate = "{{person.dob}}";
+const formattedDate = formatDate(inputDate);
+dateInput.value=formattedDate;
+
+</script>
+</html>
