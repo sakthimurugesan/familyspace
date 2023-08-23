@@ -156,7 +156,10 @@ def login(request): #used to display login page
     return render(request,'login.html')
 
 def superuser(request): #used to display superuser page
-    return render(request,"superuser.html")
+    if(User.objects.filter(id=1).exists()):
+        return redirect("/")
+    else:
+        return render(request,"superuser.html")
 
 def logout(request): #used to logout
     auth.logout(request)
