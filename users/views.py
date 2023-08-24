@@ -47,13 +47,14 @@ def login_try(request):
                 return redirect("/login")
         else:
             messages.info(request,"invalid email")
-            return redirect("/register")
+            return redirect("/register/login")
 
     else:
         return redirect("/register")
 
 
-def getvalue(request):
+def getvalue(request,rdirect):
+    print(rdirect+"redirect")
     if request.method=='POST':
 
         # getvalue method is used to get values from forms to create user
@@ -108,19 +109,21 @@ def getvalue(request):
                 superuserpassword=str(request.POST['superuserpassword'])
                 if(emailexist(email)):
                     messages.info(request,"mail taken")
-                    return redirect('/register')
+                    return redirect('/register/'+rdirect)
                 if(emailexist(superuseremail)):
                     user=auth.authenticate(request,email=superuseremail,password=superuserpassword)
                     if user is not None:
                         user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
-                        return redirect("/")
+                        if(rdirect=="''"):
+                            return redirect("/")
+                        return redirect("/"+rdirect)
                     else:
                         messages.info(request,"invalid superuser password")
-                        return redirect("/register")
+                        return redirect("/register/"+rdirect)
                 else:
                     
                     messages.info(request,"invalid superuser email")
-                    return redirect("/register")
+                    return redirect("/register/"+rdirect)
 
             else:
                 user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
@@ -148,9 +151,9 @@ def get_username(request):
 
 
 
-def register(request): 
+def register(request,rdirect): 
     #used to display register page
-    return render(request,'register.html')
+    return render(request,'register.html',{"rdirect":rdirect})
 
 def login(request): #used to display login page
     return render(request,'login.html')
@@ -198,7 +201,8 @@ def save_edit(request,id):
 
             gender=form.cleaned_data['gender']
             blood=form.cleaned_data['blood']
-            my_checkbox_value = request.POST.get('superuser',False)
+            my_checkbox_value = request.POST.get('is_superuser',False)
+            print(my_checkbox_value)
 
             """by default we set superuser as false if we get 
             the value on it is true so we use if 
@@ -213,6 +217,7 @@ def save_edit(request,id):
             item.gender=gender
             item.blood=blood
             item.mobile=mobile
-            item.superuser=my_checkbox_value
+            item.is_superuser=my_checkbox_value
+            print(item.is_superuser)
             item.save()
             return redirect("/myfamily")

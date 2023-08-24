@@ -1,7 +1,5 @@
 users app
     - add message,task,storage to home screen
-    - hide superuser
-    - create a page myfamily with all users 
-        - with edit and delete for users
+        - with edit and delete for users not allow root user to delete
     - add photo from users
     

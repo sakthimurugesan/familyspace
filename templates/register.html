@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="getvalue" method="POST">
+    <form action="../getvalue/{{rdirect}}" method="POST">
 
         {% csrf_token %}
         <input type="text" name="name" required id="name" placeholder="Enter your name"> <br>
@@ -51,7 +51,7 @@
 </body>
 <script>
     {% for i in messages %}
-alert('{{i}}');
-{% endfor %}
+    alert('{{i}}')
+    {% endfor %}
 </script>
 </html>

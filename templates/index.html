@@ -11,7 +11,7 @@
 <body>
 
 {% if not user.is_authenticated %}
-<a href="register">register</a> <br>
+<a href="register/''">register</a> <br>
 <a href="login">login</a> <br>
 {% endif %}
 
@@ -25,5 +25,9 @@
 
 
 </body>
-
+<script>
+    {% for i in messages %}
+    alert('{{i}}')
+    {% endfor %}
+</script>
 </html>
