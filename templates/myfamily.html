@@ -31,12 +31,33 @@
             <td>{{person.mobile}}</td>
             <td>{{person.is_superuser}}</td>
             {% if is_superuser %}
-            <td><a href="edit/{{person.id}}">edit</a></td>
+            <td>
+                {% if person.id == 1 and person.email == email %}
+                <button onclick="edit/{{person.id}}">Edit</button>
+               {% else %}
+               {% if person.id == 1 and person.email != email %}
+                <button onclick="edit/{{person.id}}" disabled>Edit</button>
+               
+                {% else %}
+                <button onclick="edit/{{person.id}}">Edit</button>
+                <!-- <a href="edit/{{person.id}}">edit</a> -->
+                {% endif %}
+                {% endif %}
+                
+
+            </td>
 
 
             <td>
             
 
+            {% if person.id == 1 %}
+            <form method="post" action="delete/{{person.id}}">
+                {% csrf_token %}
+                <button disabled type="submit" onclick="return confirm('Are you sure you want to delete {{person.name}} user?');">Delete</button>
+
+            </form>
+            {% else %}
             {% if person.email == email %}
             <form method="post" action="delete/{{person.id}}">
                 {% csrf_token %}
@@ -50,6 +71,7 @@
 
             </form>
             {% endif %}
+            {% endif %}
             </td>
 
             {% endif %}
@@ -59,8 +81,10 @@
     {% if user.is_authenticated %}
 <span>{{user.name}}</span> <br>
 
-
+{% if is_superuser %}
 <a href="register/myfamily">add member</a> <br>
+{% endif %}
+
 <a href="logout">logout</a> <br>
 {% endif %}
 
