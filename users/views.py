@@ -21,6 +21,7 @@ def home(request):
     
     '''
     if(User.objects.filter(id=1).exists()):
+        print(User.objects.values_list('name'))
         return render(request,"index.html")
     else:
         return redirect("/superuser")
@@ -144,6 +145,9 @@ def set_username(request):
             print(username)
             return redirect("/")
 
+
+
+
 @csrf_protect
 def get_username(request):
     email = request.session.get('email')
@@ -172,8 +176,6 @@ def delete(request,id):
     item.delete()
     return redirect("/myfamily")
 def edit(request,id):
-    print("hi")
-    print(User.objects.get(id=id))
     return render(request,"edit.html",{"person":User.objects.get(id=id),'superuser':User.objects.get(id=id).is_superuser})
 
 def save_edit(request,id):

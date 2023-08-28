@@ -1,5 +1,6 @@
 users app
     - add message,task,storage to home screen
-        - with edit and delete for users not allow root user to delete
+        - with edit and delete for users not allow root user to delete done
     - add photo from users
+    - load blood dynamically in edit.html
     

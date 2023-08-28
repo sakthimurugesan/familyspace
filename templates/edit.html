@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="../save_edit/{{person.id}}" method="post">
+    <form action="{% url 'save_edit' person.id %}" method="post">
         {% csrf_token %}
         <table>
             <tr>

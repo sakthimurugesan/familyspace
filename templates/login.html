@@ -6,7 +6,7 @@
     <title></title>
 </head>
 <body>
-    <form action="login_try" method="post">
+    <form action="{% url 'login_try' %}" method="post">
         {% csrf_token %}
         <input type="email" name="email" id="email">
         <input type="password" name="password" id="password">

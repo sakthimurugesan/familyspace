@@ -11,14 +11,15 @@
 <body>
 
 {% if not user.is_authenticated %}
-<a href="register/''">register</a> <br>
-<a href="login">login</a> <br>
+<a href="{% url 'register' '\'\'' %}">register</a> <br>
+<a href="{% url 'login' %}">login</a> <br>
 {% endif %}
 
 {% if user.is_authenticated %}
 <span>{{user.name}}</span> <br>
-<a href="myfamily">myfamily</a> <br>
-<a href="logout">logout</a> <br>
+<a href="{% url 'myfamily' %}">myfamily</a> <br>
+<a href="{% url 'task' %}">task</a> <br>
+<a href="{% url 'logout' %}">logout</a> <br>
 {% endif %}
 
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="{% url 'inserttask' %}" method="post">
+        {% csrf_token %}
+        <table border="1" style="border-collapse: collapse;">
+            <tr>
+                <td>task</td>
+                <td><input type="text" name="taskname" style="width: 97%;" id=""></td>
+            </tr>
+            <tr>
+                <td>date</td>
+                <td><input type="date" name="date" id=""></td>
+            </tr>
+            <tr>
+                <td>time</td>
+                <td><input  type="time" name="time" id=""></td>
+            </tr>
+            <tr>
+                <td>to whom</td>
+                <td><select required name="towhom" id="">
+                    <option value=""></option>
+                    <option value="all">all</option>
+                        {% for user in users %}
+
+                        {% for u in user %}
+                        <option value="{{u}}">{{u}}</option>
+                        {% endfor %}
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td>descibe briefly</td>
+                <td><textarea name="desc" required id="" cols="30" style="resize: none;" rows="10"></textarea></td>
+            </tr>
+        </table>
+        <input type="submit" value="submit">
+    </form>
+</body>
+
+</html>

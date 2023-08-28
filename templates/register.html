@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="../getvalue/{{rdirect}}" method="POST">
+    <form action="{% url 'getvalue' rdirect %}" method="POST">
 
         {% csrf_token %}
         <input type="text" name="name" required id="name" placeholder="Enter your name"> <br>

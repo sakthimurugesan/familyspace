@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=initial-scale=1.0">
+    <title>Task</title>
+</head>
+
+<body>
+    <table border="1" style="border-collapse: collapse;">
+        <tr>
+            <td></td>
+            <td>task</td>
+            <td>date</td>
+            <td>towhom</td>
+            <td>time</td>
+            <td>desc</td>
+        </tr>
+        {% for task in tasks %}
+        {% if task.towhom == towhom or task.towhom == 'all' %}
+        <tr>
+            <td><input type="checkbox" name="" id=""></td>
+            <td>{{task.taskname}}</td>
+            <td>{{task.date}}</td>
+            <td>
+                {{task.towhom}}
+                <br>
+                {% if task.towhom == 'all' %}
+                <a href="#">i will do</a>
+                {% endif %}
+            </td>
+            <td>{{task.time}}</td>
+            <td>{{task.desc}}</td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <p>
+        <br><br>
+        <a href="{% url 'addtask' %}">addtask</a>
+    </p>
+</body>
+
+</html>
