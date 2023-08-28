@@ -1,6 +1,12 @@
 users app
-    - add message,task,storage to home screen
-        - with edit and delete for users not allow root user to delete done
+    - add message,storage to home screen
     - add photo from users
-    - load blood dynamically in edit.html
-    
+
+task app
+    - add private task done
+    - assign all task public except private task done 
+    - sortby date preferences done
+    - add mark as finished
+    - add all cannot have private task
+    - if task is all add i will do
+        

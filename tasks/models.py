@@ -7,4 +7,5 @@ class AddTask(models.Model):
     towhom=models.CharField(max_length=50)
     desc=models.TextField(max_length=300)
     markasdone=models.BooleanField(default=False)
+    private=models.BooleanField()
     

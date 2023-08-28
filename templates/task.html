@@ -18,7 +18,22 @@
             <td>desc</td>
         </tr>
         {% for task in tasks %}
-        {% if task.towhom == towhom or task.towhom == 'all' %}
+        {% if task.towhom == towhom and task.private == True %}
+        <tr>
+            <td><input type="checkbox" name="" id=""></td>
+            <td>{{task.taskname}}</td>
+            <td>{{task.date}}</td>
+            <td>
+                {{task.towhom}}
+                <br>
+                {% if task.towhom == 'all' %}
+                <a href="#">i will do</a>
+                {% endif %}
+            </td>
+            <td>{{task.time}}</td>
+            <td>{{task.desc}}</td>
+            {% endif %}
+            {% if task.private == False %}
         <tr>
             <td><input type="checkbox" name="" id=""></td>
             <td>{{task.taskname}}</td>

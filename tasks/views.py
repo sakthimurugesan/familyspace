@@ -14,7 +14,7 @@ from django.shortcuts import get_object_or_404
 def task(request):
     email=0
     print(User.objects.get(email=request.session.get('email')).name)
-    return render(request,"task.html",{"tasks":AddTask.objects.values().all(),"towhom":User.objects.get(email=request.session.get('email')).name})
+    return render(request,"task.html",{"tasks":AddTask.objects.all().order_by('date','time').values(),"towhom":User.objects.get(email=request.session.get('email')).name})
 
     
 def addtask(request):
@@ -29,20 +29,22 @@ def inserttask(request):
         time=str(request.POST['time'])
         desc=str(request.POST['desc'])
         form=MyForm(request.POST)
-        
+        private = request.POST.get('private',False)
         if form.is_valid():
             towhom=form.cleaned_data['towhom']
-            print(towhom)
+            if(private=='on'):
+                private=True
+        print(private)
         if(time==''):
             AddTask.objects.create(taskname=taskname,
             date=date,
             towhom=towhom,
-            desc=desc)
+            desc=desc,private=private)
         else:
             AddTask.objects.create(taskname=taskname,
             date=date,
             towhom=towhom,
             time=time,
-            desc=desc)
+            desc=desc,private=private)
     return redirect("../")
 
