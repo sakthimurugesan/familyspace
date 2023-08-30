@@ -7,19 +7,7 @@
     <title>Task</title>
 </head>
 <style>
-.checkBoxTd
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3px;
-}
-.checkBoxTd button
-{
-    width: 10px;
-    height: 14px;
-    border: 1px solid black;
-}
+
 </style>
 <body>
     <table border="1" style="border-collapse: collapse;">
@@ -29,10 +17,9 @@
             <td>towhom</td>
             <td>time</td>
             <td>desc</td>
-            <td>completed</td>
         </tr>
         {% for task in tasks %}
-        {% if task.towhom == towhom and task.private == True and task.markasdone == False %}
+        {% if task.towhom == towhom and task.private == True and task.markasdone == True %}
         <tr>
             
             <td>{{task.taskname}}</td>
@@ -46,17 +33,8 @@
             </td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
-            <td class="checkBoxTd">
-                <form action="{% url 'markAsDone' task.id %}">
-                    <button id="markasdone{{task.id}}" onclick="return confirm('Did you completed the task');"
-                        style="background-color:white;border:none;">
-                        
-                    </button>
-
-                </form>
-            </td>
             {% endif %}
-            {% if task.private == False and task.markasdone == False %}
+            {% if task.private == False and task.markasdone == 1 %}
         <tr>
         <tr>
             
@@ -71,14 +49,6 @@
             </td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
-            <td class="checkBoxTd">
-                <form action="{% url 'markAsDone' task.id %}">
-                    <button class="markasdone{{task.id}}" onclick="return confirm('Did you completed the task');" style="background-color:white; border:1px solid black;">
-                        
-                    </button>
-
-                </form>
-            </td>
 
         </tr>
         {% endif %}
@@ -87,7 +57,7 @@
     <p>
         <br><br>
         <a href="{% url 'addtask' %}">addtask</a>
-        <a href="{% url 'completed' %}">completed task</a>
     </p>
 </body>
+
 </html>

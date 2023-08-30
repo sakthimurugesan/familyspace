@@ -6,7 +6,9 @@ task app
     - add private task done
     - assign all task public except private task done 
     - sortby date preferences done
-    - add mark as finished
-    - add all cannot have private task
+    - add mark as finished completed
+    - new page added for completed task done
+    - add all cannot have private task completed
     - if task is all add i will do
+    - add shopping list done
         

@@ -48,5 +48,9 @@
         <input type="submit" value="submit">
     </form>
 </body>
-
+<script>
+    {% for i in messages %}
+    alert('{{i}}')
+    {% endfor %}
+</script>
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Rows Dynamically</title>
+</head>
+<body>
+    <form action="{% url 'insertProducts' %}" method="POST">
+        <input type="number" style="display: none;" name="noOfProducts" value="1" id="rowcount">
+        <button class="addButton">add</button>
+        {% csrf_token %}
+        <table id="">
+            <tbody id="tables">
+                <tr id="row1">
+                    <td><input type="text" required name="product1" id=""></td>
+                    <td><input type="number" required name="quantity1" id=""></td>
+                    <td><input type="text" required name="remarks1" id=""></td>
+                    
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </form>
+
+    <script>
+        // Get the table and the add button
+        const table = document.getElementById("tables");
+        const rowinputbox = document.getElementById("rowcount");
+        const addButton = document.querySelector(".addButton");
+
+        let rowCount = 1;
+
+        addButton.addEventListener("click", function() {
+            rowCount++;
+            rowinputbox.value=rowCount;
+            const newRow = document.createElement("tr");
+            newRow.id = "row" + rowCount;
+
+            newRow.innerHTML = `
+                <td><input type="text" required name="product${rowCount}" id=""></td>
+                <td><input type="number" required name="quantity${rowCount}" id=""></td>
+                <td><input type="text" required name="remarks${rowCount}" id=""></td>
+            `;
+
+            // Append the new row to the table
+            table.appendChild(newRow);
+
+            // Remove the previous button from the last row
+      
+
+           
+
+            // Add event listener to the new button
+            newAddButton.addEventListener("click", () => {
+                addButtonClick(newRow);
+            });
+        });
+    </script>
+</body>
+</html>
