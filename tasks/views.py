@@ -9,6 +9,8 @@ import django.contrib.messages as messages
 from tasks.form import MyForm
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
+
 
 @csrf_protect
 def task(request):
@@ -40,7 +42,10 @@ def inserttask(request):
         if(private==1 and towhom=='all'):
             print("all cannot have private task")
             messages.info(request,"all cannot have private task")
-            return redirect("../addtask")
+            target_url = reverse('addtask')
+
+    
+            return redirect(target_url) 
 
         if(time==''):
             AddTask.objects.create(taskname=taskname,
@@ -54,14 +59,20 @@ def inserttask(request):
             time=time,
             desc=desc,
             private=private)
-    return redirect("../")
+    target_url = reverse('task')
+
+    # Redirect to the target view's URL
+    return redirect(target_url) 
 
 
 def markAsDone(request,id):
     s=AddTask.objects.get(id=id)
     s.markasdone=1
     s.save()
-    return redirect("../")
+    target_url = reverse('task')
+
+    # Redirect to the target view's URL
+    return redirect(target_url)
 
 def shopingList(request):
 
@@ -81,16 +92,22 @@ def insertProducts(request):
                 quantity=quantity,
                 remarks=remarks
             )
-            
+    target_url = reverse('shopingList')
 
-    return redirect("../shopingList")
+    # Redirect to the target view's URL
+    return redirect(target_url)  
+
 
 def isShopped(request,id):
     s=ShoppingProducts.objects.get(id=id)
     s.isShopped=1
     s.save()
-    return redirect("../../shopingList")
+    target_url = reverse('shopingList')
+
+    # Redirect to the target view's URL
+    return redirect(target_url) 
 
 def completedProducts(request):
     products=ShoppingProducts.objects.values().all()
     return render(request,"completedProducts.html",{"products":products})
+

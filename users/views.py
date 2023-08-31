@@ -9,8 +9,7 @@ import django.contrib.messages as messages
 from .form import MyForm
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
-
-
+from django.urls import reverse
 
 def home(request):
     '''
@@ -24,7 +23,8 @@ def home(request):
         print(User.objects.values_list('name'))
         return render(request,"index.html")
     else:
-        return redirect("/superuser")
+        target_url = reverse('superuser')
+        return redirect(target_url)
 
 def emailexist(email):
     return User.objects.filter(email=email).exists()
@@ -45,13 +45,16 @@ def login_try(request):
                 
             else:
                 messages.info(request,"invalid password")
-                return redirect("/login")
+                target_url = reverse('login')
+                return redirect(target_url)
         else:
             messages.info(request,"invalid email")
-            return redirect("/register/login")
+            target_url = reverse('register', args=['login'])
+            return redirect(target_url)
 
     else:
-        return redirect("/register")
+        target_url = reverse('register')
+        return redirect(target_url)
 
 
 def getvalue(request,rdirect):
@@ -110,27 +113,36 @@ def getvalue(request,rdirect):
                 superuserpassword=str(request.POST['superuserpassword'])
                 if(emailexist(email)):
                     messages.info(request,"mail taken")
-                    return redirect('/register/'+rdirect)
+                    target_url = reverse('register', args=[rdirect])
+                    return redirect(target_url)
                 if(emailexist(superuseremail)):
                     user=auth.authenticate(request,email=superuseremail,password=superuserpassword)
                     if user is not None:
                         user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
                         if(rdirect=="''"):
-                            return redirect("/")
-                        return redirect("/"+rdirect)
+                            target_url = reverse('index')
+                            return redirect(target_url)
+                        target_url = reverse(rdirect)
+                        return redirect(target_url)
                     else:
                         messages.info(request,"invalid superuser password")
-                        return redirect("/register/"+rdirect)
+                        target_url = reverse('register', args=[rdirect])
+                        return redirect(target_url)
                 else:
                     
                     messages.info(request,"invalid superuser email")
-                    return redirect("/register/"+rdirect)
+                    target_url = reverse('register', args=[rdirect])
+                    return redirect(target_url)
 
             else:
                 user = User.objects.create_user(email=email, password=password, name=name, mobile=mobile, dob=dob, gender=gender, blood=blood,is_superuser=my_checkbox_value)
-                return redirect("/")
+                target_url = reverse('index')
+                return redirect(target_url)
+
             
-    return redirect("/register")
+    target_url = reverse('register')
+    return redirect(target_url)
+
 
 
 def myfamily(request):   
@@ -143,7 +155,9 @@ def set_username(request):
         if username:
             request.session['email'] = username
             print(username)
-            return redirect("/")
+            target_url = reverse('index')
+            return redirect(target_url)
+
 
 
 
@@ -164,17 +178,20 @@ def login(request): #used to display login page
 
 def superuser(request): #used to display superuser page
     if(User.objects.filter(id=1).exists()):
-        return redirect("/")
+        target_url = reverse('index')
+        return redirect(target_url)
     else:
         return render(request,"superuser.html")
 
 def logout(request): #used to logout
     auth.logout(request)
-    return redirect("/")
+    target_url = reverse('index')
+    return redirect(target_url)
 def delete(request,id):
     item = get_object_or_404(User, id=id)
     item.delete()
-    return redirect("/myfamily")
+    target_url = reverse('myfamily')
+    return redirect(target_url)
 def edit(request,id):
     return render(request,"edit.html",{"person":User.objects.get(id=id),'superuser':User.objects.get(id=id).is_superuser})
 
@@ -222,4 +239,5 @@ def save_edit(request,id):
             item.is_superuser=my_checkbox_value
             print(item.is_superuser)
             item.save()
-            return redirect("/myfamily")
+            target_url = reverse('myfamily')
+            return redirect(target_url)
