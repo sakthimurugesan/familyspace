@@ -9,4 +9,6 @@ urlpatterns = [
     path('shopingList/',views.shopingList,name='shopingList'),
     path('addShopingList/',views.addShopingList,name='addShopingList'),
     path('insertProducts/',views.insertProducts,name='insertProducts'),
+    path('isShopped/<int:id>/',views.isShopped,name='isShopped'),
+    path('completedProducts/',views.completedProducts,name='completedProducts'),
 ]

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>ProductName</td>
+            <td>Quantity</td>
+            <td>Remarks</td>
+        </tr>
+        {% for pro in products %}
+        {% if pro.isShopped %}
+        <tr>
+            <td>{{pro.productName}}</td>
+            <td>{{pro.quantity}}</td>
+            <td>{{pro.remarks}}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</body>
+
+</html>

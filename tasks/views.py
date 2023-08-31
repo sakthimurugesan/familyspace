@@ -84,3 +84,13 @@ def insertProducts(request):
             
 
     return redirect("../shopingList")
+
+def isShopped(request,id):
+    s=ShoppingProducts.objects.get(id=id)
+    s.isShopped=1
+    s.save()
+    return redirect("../../shopingList")
+
+def completedProducts(request):
+    products=ShoppingProducts.objects.values().all()
+    return render(request,"completedProducts.html",{"products":products})

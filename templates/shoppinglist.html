@@ -5,22 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .checkBoxTd
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+}
+.checkBoxTd button
+{
+    width: 10px;
+    height: 14px;
+    border: 1px solid black;
+}
+</style>
 <body>
     <table>
         <tr>
             <td>product</td>
             <td>quantity</td>
             <td>remarks</td>
+            <td>completed</td>
         </tr>
         {% for pro in products %}
+        {% if pro.isShopped == 0 %}
         <tr>
             <td>{{pro.productName}}</td>
             <td>{{pro.quantity}}</td>
             <td>{{pro.remarks}}</td>
+            <td class="checkBoxTd">
+                <form action="{% url 'isShopped' pro.id %}">
+                    <button class="isShopped{{pro.id}}" onclick="return confirm('Did you purchased the item?');" style="background-color:white; border:1px solid black;">
+                        
+                    </button>
+
+                </form>
+            </td>
         </tr>
+        {% endif %}
         {% endfor %}
     </table>
     <br><br>
-    <p><a href="{% url 'addShopingList' %}">add items</a></p>
+    <p><a href="{% url 'addShopingList' %}">add items</a></p><br>
+    <a href="{% url 'completedProducts' %}">completedProducts</a> <br>
 </body>
 </html>
