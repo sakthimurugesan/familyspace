@@ -7,20 +7,20 @@
     <title>Task</title>
 </head>
 <style>
-.checkBoxTd
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3px;
-}
-.checkBoxTd button
-{
-    width: 10px;
-    height: 14px;
-    border: 1px solid black;
-}
+    .checkBoxTd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 3px;
+    }
+
+    .checkBoxTd button {
+        width: 10px;
+        height: 14px;
+        border: 1px solid black;
+    }
 </style>
+
 <body>
     <table border="1" style="border-collapse: collapse;">
         <tr>
@@ -32,17 +32,30 @@
             <td>completed</td>
         </tr>
         {% for task in tasks %}
-        {% if task.towhom == towhom and task.private == True and task.markasdone == False %}
+
+        {% if task.towhom == 'all' and task.iwilldo == None and task.private == False and task.markasdone == False %}
         <tr>
-            
+
             <td>{{task.taskname}}</td>
             <td>{{task.date}}</td>
             <td>
                 {{task.towhom}}
-                <br>
-                {% if task.towhom == 'all' %}
-                <a href="#">i will do</a>
-                {% endif %}
+            </td>
+            <td>{{task.time}}</td>
+            <td>{{task.desc}}</td>
+            <td class="checkBoxTd">
+                <a href="{% url 'iwilldo' task.id %}">i will do</a>
+            </td>
+            
+        </tr>
+
+        {% elif  task.towhom == towhom and task.private == True and task.markasdone == False %}
+        <tr>
+
+            <td>{{task.taskname}}</td>
+            <td>{{task.date}}</td>
+            <td>
+                {{task.towhom}}
             </td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
@@ -50,31 +63,30 @@
                 <form action="{% url 'markAsDone' task.id %}">
                     <button id="markasdone{{task.id}}" onclick="return confirm('Did you completed the task');"
                         style="background-color:white;border:none;">
-                        
+
                     </button>
 
                 </form>
             </td>
-            {% endif %}
-            {% if task.private == False and task.markasdone == False %}
-        <tr>
-        <tr>
             
+        </tr>
+            {% elif task.private == False and task.markasdone == False %}
+       
+        <tr>
+
             <td>{{task.taskname}}</td>
             <td>{{task.date}}</td>
             <td>
                 {{task.towhom}}
-                <br>
-                {% if task.towhom == 'all' %}
-                <a href="#">i will do</a>
-                {% endif %}
+                
             </td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
             <td class="checkBoxTd">
                 <form action="{% url 'markAsDone' task.id %}">
-                    <button class="markasdone{{task.id}}" onclick="return confirm('Did you completed the task');" style="background-color:white; border:1px solid black;">
-                        
+                    <button class="markasdone{{task.id}}" onclick="return confirm('Did you completed the task');"
+                        style="background-color:white; border:1px solid black;">
+
                     </button>
 
                 </form>
@@ -92,4 +104,5 @@
         <a href="{% url 'completedProducts' %}">completedProducts</a> <br>
     </p>
 </body>
+
 </html>

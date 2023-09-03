@@ -18,7 +18,7 @@
 {% if user.is_authenticated %}
 <span>{{user.name}}</span> <br>
 <a href="{% url 'myfamily' %}">myfamily</a> <br>
-<a href="{% url 'task' %}">task</a> <br>
+<a href="{% url 'task' %}">tasks</a> <br>
 <a href="{% url 'logout' %}">logout</a> <br>
 {% endif %}
 

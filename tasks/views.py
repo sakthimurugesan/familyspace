@@ -110,4 +110,10 @@ def isShopped(request,id):
 def completedProducts(request):
     products=ShoppingProducts.objects.values().all()
     return render(request,"completedProducts.html",{"products":products})
-
+@csrf_protect
+def iwilldo(request,id):
+    s=AddTask.objects.get(id=id)
+    s.towhom=User.objects.get(email=request.session.get('email')).name
+    s.save()
+    target_url = reverse('task')
+    return redirect(target_url) 
