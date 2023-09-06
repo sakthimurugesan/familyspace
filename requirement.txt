@@ -3,7 +3,7 @@ users app
     - add photo from users
 
 task app
-    - if task is all add i will do
+    - if task is all add i will do completed
     - add markasdone in shopping completed
     - purchased items are stored in a separate new page completed
     

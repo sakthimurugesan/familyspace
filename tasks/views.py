@@ -116,4 +116,4 @@ def iwilldo(request,id):
     s.towhom=User.objects.get(email=request.session.get('email')).name
     s.save()
     target_url = reverse('task')
-    return redirect(target_url) 
+    return redirect(target_url)
