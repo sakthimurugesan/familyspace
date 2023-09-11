@@ -11,6 +11,5 @@ urlpatterns = [
     path('myfamily/',views.myfamily,name='myfamily'),
     path('delete/<int:id>/',views.delete,name='delete'),
     path('edit/<int:id>/',views.edit,name='edit'),
-    path('save_edit/<int:id>/',views.save_edit,name='save_edit'),
-    
+    path('save_edit/<int:id>/',views.save_edit,name='save_edit'),  
 ]

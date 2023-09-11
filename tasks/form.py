@@ -10,6 +10,7 @@ class MyForm(forms.Form):
             l.append(j)
             choices.append(tuple(l))
     towhom=forms.ChoiceField(choices=choices)
+ 
 
 user=users.models.User
 print(user.objects.values_list('name'))
