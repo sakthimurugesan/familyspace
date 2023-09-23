@@ -1,9 +1,8 @@
 users app
     - add message,storage to home screen
     - add photo from users
+    - add reverse url for superregister page
 
 task app
-    - if task is all add i will do completed
-    - add markasdone in shopping completed
-    - purchased items are stored in a separate new page completed
+    - add email sending feature for task before a day and before an hour and before half an hour and before 1 min 
     
