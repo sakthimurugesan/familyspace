@@ -1,3 +1,6 @@
+import time
+import threading
+from datetime import datetime, timedelta
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from familyspace.settings import BASE_DIR
@@ -10,6 +13,7 @@ from tasks.form import MyForm
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.core.mail import send_mail
 
 
 @csrf_protect
@@ -119,7 +123,7 @@ def isShopped(request,id):
     target_url = reverse('shopingList')
 
     # Redirect to the target view's URL
-    return redirect(target_url) 
+    return redirect(target_url)
 
 def completedProducts(request):
     products=ShoppingProducts.objects.values().all()
@@ -132,3 +136,38 @@ def iwilldo(request,id):
     s.save()
     target_url = reverse('task')
     return redirect(target_url)
+
+def sayHi():
+    k=1
+    while True:
+        tasks=AddTask.objects.values().all()
+        today_time=datetime(datetime.today().year,datetime.today().month,datetime.today().day,datetime.today().hour,datetime.today().minute,0,0)
+        delta_time=timedelta(days=1,hours=0,minutes=1)
+        delta_time_1=timedelta(days=0,hours=1,minutes=1)
+        delta_time_2=timedelta(days=0,hours=0,minutes=31)
+        delta_time_3=timedelta(days=0,hours=0,minutes=6)
+
+        for task in tasks:
+            temp_date=datetime(task['dateTime'].year,task['dateTime'].month,task['dateTime'].day,task['dateTime'].hour,task['dateTime'].minute,0,0)
+
+            email_subject="REMAINDER FROM FAMILYSPACE FOR YOUR TASK"
+
+            message_text = "Please complete your task "+task['desc']+' on '+' '+str(task['dateTime'].day)+'/'+str(task['dateTime'].month)+"/"+str(task['dateTime'].day)
+            from_email="msakthi150@outlook.com"
+            reciever_email=[task['towhom_email']]
+
+            if(today_time
+            +delta_time==temp_date or today_time
+            +delta_time_1==temp_date or today_time
+            +delta_time_2==temp_date or today_time
+            +delta_time_3==temp_date ):
+                
+                print(str(k)*50)
+                send_mail(email_subject, message_text, from_email, reciever_email)
+                k+=1
+        time.sleep(60)
+
+
+
+my_thread = threading.Thread(target=sayHi)
+my_thread.start()
