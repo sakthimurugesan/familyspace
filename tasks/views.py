@@ -34,13 +34,19 @@ def inserttask(request):
         desc=str(request.POST['desc'])
         form=MyForm(request.POST)
         private = request.POST.get('private',False)
-        if form.is_valid():
-            # User.objects.get(email=email).is_superuser
-            # form.cleaned_data['towhom']
-            towhom=User.objects.get(id=form.cleaned_data['towhom']).name
-            towhom_email=User.objects.get(id=form.cleaned_data['towhom']).email
-            if(private=='on'):
-                private=True
+        towhom="all"
+        towhom_email=""
+        if(private=='on'):
+            private=True
+        try:
+            if form.is_valid():
+                # User.objects.get(email=email).is_superuser
+                # form.cleaned_data['towhom']
+                towhom=User.objects.get(id=form.cleaned_data['towhom']).name
+                towhom_email=User.objects.get(id=form.cleaned_data['towhom']).email
+        except:
+            pass
+            
         if(private==1 and towhom=='all'):
             print("all cannot have private task")
             messages.info(request,"all cannot have private task")
@@ -119,6 +125,7 @@ def completedProducts(request):
 def iwilldo(request,id):
     s=AddTask.objects.get(id=id)
     s.towhom=User.objects.get(email=request.session.get('email')).name
+    s.towhom_email=request.session.get('email')
     s.save()
     target_url = reverse('task')
     return redirect(target_url)
