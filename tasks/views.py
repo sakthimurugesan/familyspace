@@ -34,6 +34,7 @@ def inserttask(request):
         desc=str(request.POST['desc'])
         form=MyForm(request.POST)
         private = request.POST.get('private',False)
+        dateTime=date+" "+time
         towhom="all"
         towhom_email=""
         if(private=='on'):
@@ -60,7 +61,8 @@ def inserttask(request):
             date=date,
             towhom=towhom,
             desc=desc,private=private,
-            towhom_email=towhom_email)
+            towhom_email=towhom_email
+            ,dateTime=dateTime)
         else:
             AddTask.objects.create(taskname=taskname,
             date=date,
@@ -68,7 +70,8 @@ def inserttask(request):
             time=time,
             desc=desc,
             private=private,
-            towhom_email=towhom_email
+            towhom_email=towhom_email,
+            dateTime=dateTime
             )
     target_url = reverse('task')
 
