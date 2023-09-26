@@ -1,0 +1,9 @@
+User.objects.values().all()
+
+User.objects.get(email=email)
+
+User.objects.get(email=email).is_superuser
+
+User.objects.filter(id=1).exists()
+
+User.objects.values_list('email')

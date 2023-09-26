@@ -2,6 +2,7 @@ from django.db import models
 
 class AddTask(models.Model):
     taskname=models.CharField(max_length=50)
+    towhom_email=models.CharField(max_length=50,default="")
     time=models.TimeField(default="00:00")
     date=models.DateField()
     towhom=models.CharField(max_length=50)

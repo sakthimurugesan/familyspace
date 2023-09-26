@@ -27,6 +27,7 @@
             <td>task</td>
             <td>date</td>
             <td>towhom</td>
+            <td>email</td>
             <td>time</td>
             <td>desc</td>
             <td>completed</td>
@@ -41,6 +42,8 @@
             <td>
                 {{task.towhom}}
             </td>
+
+            <td>{{task.towhom_email}}</td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
             <td class="checkBoxTd">
@@ -57,6 +60,7 @@
             <td>
                 {{task.towhom}}
             </td>
+            <td>{{task.towhom_email}}</td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
             <td class="checkBoxTd">
@@ -78,8 +82,8 @@
             <td>{{task.date}}</td>
             <td>
                 {{task.towhom}}
-                
             </td>
+            <td>{{task.towhom_email}}</td>
             <td>{{task.time}}</td>
             <td>{{task.desc}}</td>
             <td class="checkBoxTd">

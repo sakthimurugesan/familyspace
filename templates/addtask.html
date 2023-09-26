@@ -27,13 +27,13 @@
                 <td>to whom</td>
                 <td><select required name="towhom" id="">
                     <option value=""></option>
-                    <option value="all">all</option>
+                    <option value="0">all</option>
                         {% for user in users %}
 
-                        {% for u in user %}
-                        <option value="{{u}}">{{u}}</option>
+                       
+                        <option value="{{user.id}}">{{user.name}}</option>
                         {% endfor %}
-                        {% endfor %}
+                  
                     </select></td>
             </tr>
             <tr>

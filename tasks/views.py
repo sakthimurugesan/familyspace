@@ -23,8 +23,7 @@ def completedTask(request):
     return render(request,"completed.html",{"tasks":AddTask.objects.all().order_by('date','time').values(),"towhom":User.objects.get(email=request.session.get('email')).name})
     
 def addtask(request):
-    print(User.objects.values_list('name'))
-    return render(request,"addtask.html",{'users':User.objects.values_list('name')})
+    return render(request,"addtask.html",{'users':User.objects.values().all()})
 
 def inserttask(request):
     if request.method=='POST':
@@ -36,7 +35,10 @@ def inserttask(request):
         form=MyForm(request.POST)
         private = request.POST.get('private',False)
         if form.is_valid():
-            towhom=form.cleaned_data['towhom']
+            # User.objects.get(email=email).is_superuser
+            # form.cleaned_data['towhom']
+            towhom=User.objects.get(id=form.cleaned_data['towhom']).name
+            towhom_email=User.objects.get(id=form.cleaned_data['towhom']).email
             if(private=='on'):
                 private=True
         if(private==1 and towhom=='all'):
@@ -51,14 +53,17 @@ def inserttask(request):
             AddTask.objects.create(taskname=taskname,
             date=date,
             towhom=towhom,
-            desc=desc,private=private)
+            desc=desc,private=private,
+            towhom_email=towhom_email)
         else:
             AddTask.objects.create(taskname=taskname,
             date=date,
             towhom=towhom,
             time=time,
             desc=desc,
-            private=private)
+            private=private,
+            towhom_email=towhom_email
+            )
     target_url = reverse('task')
 
     # Redirect to the target view's URL

@@ -3,7 +3,7 @@ import users.models
 class MyForm(forms.Form):
     user=users.models.User
     choices=[('all','all')]
-    for i in user.objects.values_list('name'):
+    for i in user.objects.values_list('id'):
         for j in i:
             l=[]
             l.append(j)
