@@ -4,5 +4,6 @@ users app
     - add reverse url for superregister page
 
 task app
-    - add email sending feature for task before a day and before an hour and before half an hour and before 1 min 
+    - add email sending feature for task before a day and before an hour and before half an hour and before 1 min done
+    
     

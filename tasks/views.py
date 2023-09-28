@@ -14,7 +14,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.core.mail import send_mail
-
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
 
 @csrf_protect
 def task(request):
@@ -150,21 +152,46 @@ def sayHi():
         for task in tasks:
             temp_date=datetime(task['dateTime'].year,task['dateTime'].month,task['dateTime'].day,task['dateTime'].hour,task['dateTime'].minute,0,0)
 
-            email_subject="REMAINDER FROM FAMILYSPACE FOR YOUR TASK"
-
-            message_text = "Please complete your task "+task['desc']+' on '+' '+str(task['dateTime'].day)+'/'+str(task['dateTime'].month)+"/"+str(task['dateTime'].day)
-            from_email="msakthi150@outlook.com"
-            reciever_email=[task['towhom_email']]
 
             if(today_time
             +delta_time==temp_date or today_time
             +delta_time_1==temp_date or today_time
             +delta_time_2==temp_date or today_time
             +delta_time_3==temp_date ):
-                
                 print(str(k)*50)
-                send_mail(email_subject, message_text, from_email, reciever_email)
                 k+=1
+                h=task['dateTime'].hour
+                if(task['dateTime'].hour==0):
+                    h=task['dateTime'].hour
+                elif(task['dateTime'].hour>12):
+                    h=task['dateTime'].hour%12
+                ampm=""
+                if(task['dateTime'].hour<13):
+                    ampm='AM'
+                else:
+                    ampm='PM'
+                s="Please complete your task "+task['taskname']+' on '+' '+str(task['dateTime'].day)+'/'+str(task['dateTime'].month)+"/"+str(task['dateTime'].year)+' '+str(h)+':'+str(task['dateTime'].minute)+ampm+'\t'+task['desc']
+                template = get_template('emailtemplate.html')
+                context = {
+                    'name':s,
+                    'date':str(task['dateTime'].day)+'/'+str(task['dateTime'].month)+"/"+str(task['dateTime'].year),
+                    'time':str(h)+':'+str(task['dateTime'].minute)+ampm,
+                'email':task['towhom_email'],
+                'taskname':task['taskname'],
+                'desc':task['desc'],
+                'taskid':task['id']
+                }
+                from_email="msakthi150@outlook.com"  # Replace with your data
+                html_content = template.render(context)
+
+                subject = "REMAINDER FROM FAMILYSPACE FOR YOUR TASK"
+                from_email = "msakthi150@outlook.com"
+                recipient_list =[task['towhom_email']]
+
+                msg = EmailMultiAlternatives(subject, html_content, from_email, recipient_list)
+                msg.content_subtype = 'html'  # Set the content type as HTML
+                msg.send()
+                
         time.sleep(60)
 
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<style>
+    /* Style the table */
+    #markasdone {
+        padding: 20px;
+        background-color: red;
+        text-decoration: none;
+        color: white;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+        background-color: rgb(0, 26, 255);
+        padding: 10px;
+        color: rgb(255, 0, 0);
+    }
+
+    td,
+    th {
+        color: red;
+    }
+
+    /* Style table headers */
+    th {
+        background-color: rgb(0, 26, 255);
+        text-align: left;
+        padding: 8px;
+    }
+
+    /* Style even rows */
+    tr:nth-child(even) {
+        background-color: rgb(0, 26, 255);
+    }
+
+    /* Style table data cells */
+    td {
+        padding: 8px;
+    }
+
+    /* Add some spacing and borders for better readability */
+    th,
+    td {
+        border-bottom: 1px solid #ffffff;
+    }
+
+    /* Style the first column (TaskName) differently if needed */
+    th:first-child,
+    td:first-child {
+        font-weight: bold;
+        background-color: #ddd;
+    }
+</style>
+
+<body>
+    <p>Complete your task</p>
+    <table>
+        <tr>
+            <th>TaskName</th>
+            <td>{{ taskname }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ date }}</td>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <td>{{ time }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ email }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ desc }}</td>
+        </tr>
+    </table>
+    <br><br>
+    <h1 style="color: red;padding:10px;background-color:black;">{{ name }}</h1>
+    <a id="markasdone" style="
+    padding: 20px;
+    background-color: red;
+    text-decoration: none;
+    color: white;
+    margin-left:25px;
+    "  href="http://127.0.0.1:8000/tasks/markAsDone/{{taskid}}">markAsDone</a>
+
+
+</body>
+
+</html>
