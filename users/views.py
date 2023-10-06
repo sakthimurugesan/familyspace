@@ -37,8 +37,8 @@ def login_try(request):
         if(emailexist(email)):
 
             user=auth.authenticate(request,email=email,password=password)
+            print(user)
             if user is not None:
-                print(User.objects.values().all())
                 auth.login(request,user)
                 messages.info(request,"login successful")
                 return set_username(request)
